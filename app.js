@@ -4,7 +4,7 @@ const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 
 const globalCatchException = require('./middlewares/global-catch-exception');
-const test = require('./app/api/v1/test');
+const user = require('./app/api/v1/user');
 
 const app = new Koa();
 
@@ -25,6 +25,6 @@ app.use(async (ctx, next) => {
 });
 
 // routes
-app.use(test.routes());
+app.use(user.routes());
 
 module.exports = app;

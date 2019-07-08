@@ -17,7 +17,7 @@ const sequelize = new Sequelize(MYSQL_CONF.database, MYSQL_CONF.user, MYSQL_CONF
 
 // 修改表后 是否会删除新建
 sequelize.sync({
-    force: true,
+    force: false,
 })
 
 module.exports = {

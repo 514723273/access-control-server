@@ -1,4 +1,5 @@
 const { HttpException, UnkownException } = require('../core/http-exception');
+const { ErrorRes } = require('../core/res');
 
 const globalCatchException = async (ctx, next) => {
 
@@ -12,15 +13,13 @@ const globalCatchException = async (ctx, next) => {
         if(isDev && !isHttpException) {
             throw error;
         }
-        // 未知异常
+
+        // 生产模式且未知异常
         if(!isHttpException) {
             error = new UnkownException();
         }
-        ctx.body = {
-            msg: error.msg,
-            errorCode:  error.errorCode,
-            request: `${ctx.method} ${ctx.path}`,
-        };
+
+        ctx.body = new ErrorRes(error, ctx);
         ctx.status = error.status;  // 设置 HTTP 状态码
     }
 }
