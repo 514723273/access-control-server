@@ -1,7 +1,7 @@
-const { LinValidator, Rule } = require('../../core/lin-validator-v2');
+const { BaseValidator, Rule } = require('./base-validator');
 const User = require('../models/user');
 
-class RegisterValidator extends LinValidator {
+class RegisterValidator extends BaseValidator {
     constructor() {
         super();
         this.email = [

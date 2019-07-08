@@ -1,5 +1,3 @@
-const RegisterValidator = require('./RegisterValidator');
-
 module.exports = {
-    RegisterValidator,
+    RegisterValidator: require('./register-validator'),
 }
