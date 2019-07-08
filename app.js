@@ -1,13 +1,15 @@
 const Koa = require('koa');
 const json = require('koa-json');
-const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 
+const globalCatchException = require('./middlewares/global-catch-exception');
+const test = require('./app/api/v1/test');
+
 const app = new Koa();
 
-// error handler
-onerror(app);
+app.use(globalCatchException);
+
 // middlewares
 app.use(bodyparser({
     enableTypes:['json', 'form', 'text']
@@ -22,14 +24,7 @@ app.use(async (ctx, next) => {
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
 
-// // routes
-// app.use(index.routes(), index.allowedMethods())
-// app.use(dept.routes(), dept.allowedMethods())
+// routes
+app.use(test.routes());
 
-// !!! error-handling
-app.on('error', (err, ctx) => {
-    console.error('server error', err, ctx)
-});
-
-
-  module.exports = app
+module.exports = app;
